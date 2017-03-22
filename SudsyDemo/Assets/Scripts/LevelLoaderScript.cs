@@ -66,7 +66,8 @@ public class LevelLoaderScript : MonoBehaviour {
                     tileRefs[i * singleTiles.Length + j] = Instantiate(tiles[Int32.Parse(singleTiles[j])], new Vector3(j - (singleTiles.Length / 2) + 0.5f, -i + (lines.Length / 2) + 0.5f, 0), Quaternion.identity);
                 }
 
-                //TODO Tell the tile what coordinates it is
+                //Tell the tile what coordinates it is
+                tileRefs[i * singleTiles.Length + j].GetComponent<TileInformation>().assignCordinates(j, lines.Length - 1 - i);
 
                 //TODO communicate this with the backend
             }

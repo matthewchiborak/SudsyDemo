@@ -424,7 +424,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 1333960146100012, guid: b4e3a0babdf73b542949f8337e47063d, type: 2}
+  - {fileID: 1568369633435426, guid: 89719e1da179e364690cd0658bb5cade, type: 2}
   - {fileID: 1704305999761490, guid: 76cc8e3897eba5d45bb47f6c233adeeb, type: 2}
   loadingScreen: {fileID: 1691439159}
 --- !u!4 &1389564035
