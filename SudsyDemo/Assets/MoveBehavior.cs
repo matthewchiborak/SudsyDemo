@@ -11,7 +11,7 @@ namespace Assets
     public class MoveBehavior
     {
 
-        public virtual Boolean move(Actor actor, Tile block)
+        public virtual Boolean move(Actor actor, Tile block, GameBoard gb)
         {
 
             return false;
@@ -23,11 +23,21 @@ namespace Assets
     public class MoveBehaviorDeafult : MoveBehavior
     {
 
-        public override Boolean move(Actor actor, Tile block)
+        public override Boolean move(Actor actor, Tile block, GameBoard gb)
         {
 
+            //Store the previous state info
+            gb.addHistory(actor.row, actor.col, actor.currentTile);
+
+            //Set the previous square to clean.
+            gb.board[actor.row][actor.col] = TileFactoryMethods.TileFactory(TileType.Clean);
+
+            //move the player
             actor.row = block.row;
             actor.col = block.col;
+                  
+            //update the players location
+            actor.currentTile = block;
 
             return true;
 
@@ -38,7 +48,7 @@ namespace Assets
     public class MoveBehaviorBlock : MoveBehavior
     {
 
-        public override Boolean move(Actor actor, Tile block)
+        public override Boolean move(Actor actor, Tile block, GameBoard gb)
         {
 
             return false;

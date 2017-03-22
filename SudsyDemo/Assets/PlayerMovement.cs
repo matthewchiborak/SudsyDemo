@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow) )
         {
             print("w key was pressed");
@@ -39,6 +40,12 @@ public class PlayerMovement : MonoBehaviour
         {
             print("d key was pressed");
             gb.doGameEvent(new PlayerMoveEventRight());
+        }
+        else if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            print("backspace key was pressed");
+            gb.doGameEvent(new GameBoardUndoEvent());
+
         }
 
     }

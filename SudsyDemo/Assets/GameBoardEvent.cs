@@ -24,6 +24,27 @@ namespace Assets
 
     }
 
+    //Undo move event
+    public class GameBoardUndoEvent : GameBoardEvent
+    {
+
+        public override Boolean doEvent(GameBoard gb)
+        {
+
+            MoveHistory h = gb.getHistory();
+            if (h == null) return true;
+
+            gb.board[h.row][h.col] = h.tile;
+            gb.player.currentTile = gb.board[h.row][h.col];
+            gb.player.row = h.row;
+            gb.player.col = h.col;
+
+            return true;
+
+        }
+
+    }
+
     //move player up event
     public class PlayerMoveEventUp : PlayerMoveEvent
     {
@@ -37,7 +58,7 @@ namespace Assets
 
             Tile tile = gb.board[p.row - 1][p.col];
 
-            return tile.MoveTo(gb.player);
+            return tile.doMoveEvent(p, gb);
 
         }
 
@@ -55,7 +76,7 @@ namespace Assets
 
             Tile tile = gb.board[p.row][p.col - 1];
 
-            return tile.MoveTo(gb.player);
+            return tile.doMoveEvent(p, gb);
 
         }
 
@@ -73,7 +94,7 @@ namespace Assets
 
             Tile tile = gb.board[p.row + 1][p.col];
 
-            return tile.MoveTo(gb.player);
+            return tile.doMoveEvent(p, gb);
 
         }
 
@@ -91,7 +112,7 @@ namespace Assets
 
             Tile tile = gb.board[p.row][p.col + 1];
 
-            return tile.MoveTo(gb.player);
+            return tile.doMoveEvent(p, gb);
 
         }
 

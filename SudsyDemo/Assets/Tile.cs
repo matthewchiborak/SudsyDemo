@@ -6,41 +6,63 @@ using System.Text;
 namespace Assets
 {
 
-    
+
     public class Tile
     {
 
         //insert move behaviour
         public int row, col;
-        protected MoveBehavior moveBehaviour;        
+        public TileType type ;
+        private MoveBehavior moveBehaviour;
 
-        public Tile(int row, int col)
+        public Tile(TileType type, MoveBehavior mvb)
+        {
+            this.type = type;
+            moveBehaviour = mvb;
+
+        }
+
+        public Boolean doMoveEvent(Actor act, GameBoard gb)
+        {
+
+            return moveBehaviour.move(act, this, gb);
+
+        }
+
+        public Boolean setPos(int row, int col)
         {
 
             this.row = row;
             this.col = col;
-            moveBehaviour = new MoveBehaviorDeafult();
 
-        }
-
-        public Boolean MoveTo(Actor act)
-        {
-
-            return moveBehaviour.move(act, this);
+            return true;
 
         }
 
     }
 
-    public class Block : Tile
+
+    public class MoveableTile : Tile
     {
+        int moves = 0;
 
-        public Block(int row, int col) : base(row, col)
+        public MoveableTile(TileType type, MoveBehavior mvb) : base(type, mvb)
         {
-
-            moveBehaviour = new MoveBehaviorBlock();
 
         }
 
+        public Boolean isMoveable()
+        {
+            return moves > 0;
+        }
+
+        public Boolean setMoves(int moves)
+        {
+            this.moves = moves;
+
+            return true;
+        }
+
     }
+
 }

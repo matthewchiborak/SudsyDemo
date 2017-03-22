@@ -11,7 +11,8 @@ namespace Assets
     {
 
         public int row, col;
-        protected List<String> type;
+        public List<String> type;
+        public Tile currentTile;
 
         //Deafult Constructor
         public Actor()
