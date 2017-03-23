@@ -8,11 +8,32 @@ public class PlayerMovement : MonoBehaviour
 {
 
     GameBoard gb;
+    //List<List<MonoBehaviour>> bgTiles;
+    public Transform bgTile;
+    public Transform mudOverlay;
+
+
 
     // Use this for initialization
     void Start()
     {
+        //call method that loads from file here?
         gb = gameObject.AddComponent<GameBoard>();
+        gb.mudOverlay = mudOverlay;
+
+        for(int row = 0; row < gb.height; row++)
+        {
+
+            for(int col = 0; col < gb.width; col++)
+            {
+
+                Instantiate(bgTile, new Vector3(row, col, .01f), Quaternion.identity);
+                                
+            }
+
+        }
+
+        Camera.main.transform.Translate(gb.width / 2 - 0.5f, gb.height / 2, -7.5f);
     }
 
     // Update is called once per frame

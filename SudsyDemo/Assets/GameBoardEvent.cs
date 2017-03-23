@@ -35,6 +35,7 @@ namespace Assets
             if (h == null) return true;
 
             gb.board[h.row][h.col] = h.tile;
+
             gb.player.currentTile = gb.board[h.row][h.col];
             gb.player.row = h.row;
             gb.player.col = h.col;

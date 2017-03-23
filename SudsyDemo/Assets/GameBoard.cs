@@ -24,19 +24,22 @@ public class GameBoard : MonoBehaviour {
 
     Stack<MoveHistory> history;
 
+    public Transform mudOverlay;
 
     public ActorPlayer player = new ActorPlayer();
 
 
     public List<List<Tile>> board = new List<List<Tile>>();
+    private List<List<Transform>> boardObj = new List<List<Transform>>();
 
-  
 
     //Deafult constructor, private as it is a singleton class
     public GameBoard()
     {
-        this.Start();
+
+        
     }
+
 
     // Use this for initialization
     void Start () {
@@ -67,9 +70,26 @@ public class GameBoard : MonoBehaviour {
         //Initialize the History stack
 
         history = new Stack<MoveHistory>();
+
+        //Draw screen
+
         
-	}
-	
+            for (int col = width - 1; col >= 0; col--)
+            {
+                List<Transform> objRow = new List<Transform>();
+
+            for (int row = 0; row < height; row++)
+            {
+                Transform obj = Instantiate(mudOverlay, new Vector3(row, col, 0), Quaternion.identity);
+                objRow.Add(obj);
+
+            }
+            boardObj.Add(objRow);
+
+        }
+    }
+
+
     public void addHistory(int x, int y, Tile t)
     {
         MoveHistory h = new MoveHistory(x, y, t);
@@ -83,8 +103,21 @@ public class GameBoard : MonoBehaviour {
     }
 
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+    {
+	
+        for(int row = 0; row < height; row++)
+        {
+            for(int col = 0; col < width; col++)
+            {
+
+                bool muddy = board[row][col].type == TileType.Dirty;
+
+                boardObj[row][col].GetComponent<Renderer>().enabled = muddy;
+
+            }
+        }
+        	
 	}
 
     public void doGameEvent(GameBoardEvent ev)
